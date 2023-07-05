@@ -1,0 +1,9 @@
+1) open a python terminal
+
+2) import uuid
+
+3) tap ->uuid.uuid4().hex()
+
+paste in a security file.
+
+'73bbf3a3e7f149bcbfa4fa37a981b8fc'

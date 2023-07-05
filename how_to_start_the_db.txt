@@ -1,0 +1,17 @@
+1) open the python in the terminal
+
+2) tap -> from app import app, db
+
+3)tap -> app.app_context().push()
+
+
+############
+# 2 option
+#############
+
+Organize the main in order to automaticly create the .db
+
+put this preivous app.run()
+
+app.app_context().push()
+db.create_all()
