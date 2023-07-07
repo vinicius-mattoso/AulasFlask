@@ -75,7 +75,7 @@ class TodoForm(FlaskForm):
 
 # Creating Routes for the app
 
-@app.route('/')
+@app.route('/', methods=['GET',"POST"])
 def home():
     # To return just a simple string 
     # return " Hello from Flask"
@@ -85,9 +85,33 @@ def home():
 
     # To return a render page now with the form
     form = TodoForm()
-    return render_template('home.html', form=form)
+    # Acess the todo dataset table
+    todos = Todo.query.all()
 
+    # Check if has a update
+    if form.validate_on_submit():
+        # Create a new todo object
+        new_todo = Todo(todo=form.todo.data)
+        # Add the new object to the database
+        db.session.add(new_todo)
+        # Save the changes in the database
+        db.session.commit()
 
+        # after add return for the home page to avoid problems
+        return redirect(url_for('home'))
+
+    # This is not showing the list of todos
+    # return render_template('home.html', form=form)
+
+    # Passing the list of todos
+    return render_template('home.html', form=form, todos=todos)
+
+@app.route('/complete-todo/<int:todo_id>', methods=['GET',"POST"])
+def complete_todo(todo_id):
+    todo = Todo.query.get_or_404(todo_id)
+    db.session.delete(todo)
+    db.session.commit()
+    return redirect(url_for('home'))
 
 # Making the app running
 if __name__ == '__main__':
