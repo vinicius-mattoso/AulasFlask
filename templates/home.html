@@ -4,34 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flask tutorial ( Todo list app)</title>
+    <title>Flask Tutorial (Todo List App)</title>
+    <!-- Add Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 
 <body>
+    <div class="container">
+        <h1 class="mt-4">Hello, please enter your new todo:</h1>
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.todo(class="form-control", placeholder="Enter todo") }}
+            </div>
+            <button type="submit" class="btn btn-primary">Add Todo</button>
+        </form>
 
-    <!-- <h1>Hello, here will be a todo list app, but the code will be fulled with comment to improve your Flask notions.</h1> -->
-    <h1>Hello, please put here the your new todo.</h1>
-    <form method='POST' action="">
-        {{form.hidden_tag()}}
-        {{form.todo}}
-        {{form.submit}}
-    </form>
+        {% for todo in todos %}
+        <div class="card mt-4">
+            <div class="card-body">
+                <h5 class="card-title">{{ todo.todo }}</h5>
+                <a href="{{ url_for('complete_todo', todo_id=todo.id) }}" class="btn btn-danger mr-2">Complete Todo</a>
+                <a href="{{ url_for('edit_todo', todo_id=todo.id) }}" class="btn btn-secondary">Edit Todo</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 
-
-    {% for todo in todos %}
-
-    <p>
-        <!-- On this case, you just display a <todo n> -->
-        <!-- {{todo}}  -->
-
-        <!-- To show the content you need to acess the todo inside the todo, take a look in the Todo class -->
-        {{todo.todo}}
-    </p>
-    <a href="{{url_for('complete_todo', todo_id=todo.id)}}"> Complete todo </a>
-
-    {% endfor %}
-
-
+    <!-- Add Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
