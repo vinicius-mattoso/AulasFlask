@@ -1,21 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flask tutorial ( Todo list app)</title>
 </head>
+
 <body>
 
     <!-- <h1>Hello, here will be a todo list app, but the code will be fulled with comment to improve your Flask notions.</h1> -->
     <h1>Hello, please put here the your new todo.</h1>
-    <form method = 'POST' action="">
+    <form method='POST' action="">
         {{form.hidden_tag()}}
         {{form.todo}}
         {{form.submit}}
-
-
     </form>
-    
+
+
+    {% for todo in todos %}
+
+    <p>
+        <!-- On this case, you just display a <todo n> -->
+        <!-- {{todo}}  -->
+
+        <!-- To show the content you need to acess the todo inside the todo, take a look in the Todo class -->
+        {{todo.todo}}
+    </p>
+    <a href="{{url_for('complete_todo', todo_id=todo.id)}}"> Complete todo </a>
+
+    {% endfor %}
+
+
 </body>
+
 </html>
